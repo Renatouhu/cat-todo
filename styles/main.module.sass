@@ -1,0 +1,40 @@
+@import './_variables'
+
+.main
+    background-color: $themeColor2
+    .listName
+        padding: 10px
+        input
+            font-size: 1rem
+            background: none
+            border: none
+        button
+            background: none
+            border: none
+            color: white
+            font-size: 20px
+    .listTodos
+        background-color: #358576
+        padding: 15px
+        li
+            display: flex
+            align-items: center
+            gap: 10px
+            .item
+                width: 30px
+                height: 30px
+                background-color: white
+            .itemChecked
+                border: 1px solid #116B38
+                position: relative
+                background-color: #116B38
+                &:before
+                    content: ''
+                    width: 100%
+                    height: 100%
+                    position: absolute
+                    top: 0
+                    right: 0
+                    background: url(#{$todo-checked}) no-repeat
+                    background-size: cover
+                    background-position: center
