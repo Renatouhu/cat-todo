@@ -1,7 +1,8 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "../../../../styles/main.module.sass";
-import { Todo } from "../todo/todo"
+import { Todo } from "../todo/todo.jsx"
+import { InputAdd } from "../inputTodo/inputAdd";
 
 export const Main = () => {
   const [desktop] = useState("Nome da Lista");
@@ -13,18 +14,9 @@ export const Main = () => {
   const handleInput = (e) => {
     setListTodo({
       name: e.target.value,
-      items: listTodo.items,
-    });
+      items: listTodo.items
+    })
   };
-
-  function changeCheckbox(e) {
-    let ischecked = e.target.className === styles.item;
-    if (ischecked) {
-      e.target.className += ` ${styles.itemChecked}`;
-    } else {
-      e.target.className = styles.item;
-    }
-  }
 
   function addTodo() {
     const list = document.querySelector(`.${styles.listTodos}`);
@@ -52,28 +44,9 @@ export const Main = () => {
       <main className={styles.main}>
         <section>
           <div className={styles.listName}>
-            <input onChange={handleInput} defaultValue={listTodo.name} />
-            <button onClick={addTodo} className="">
-              Add+
-            </button>
+            <InputAdd addTodo={addTodo} handleInput={handleInput}/>
             <ul className={styles.listTodos}>
-                {listTodo.items.map((item, index) => {
-                    let classCheckbox =
-                      listTodo.items[index].status === true
-                        ? `${styles.item} ${styles.itemChecked}`
-                        : `${styles.item}`;
-                    return (
-                      <li key={index}>
-                        <div
-                          className={classCheckbox}
-                          id="check-todo"
-                          onClick={changeCheckbox}
-                        />
-                        <p>{item.name}</p>
-                      </li>
-                    );
-                  })
-                }
+               <Todo listTodo={listTodo}/>
             </ul>
           </div>
         </section>
