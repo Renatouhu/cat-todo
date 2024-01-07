@@ -1,6 +1,6 @@
 import styles from "../../../../styles/todo.module.sass";
 
-export const Todo = (props) => {
+export const Todo = ({ listTodo }) => {
   function changeCheckbox(e) {
     let ischecked = e.target.className === styles.item;
     if (ischecked) {
@@ -12,7 +12,7 @@ export const Todo = (props) => {
 
   return (
     <>
-      {props.listTodo.items.map((item, index) => {
+      {listTodo !== undefined ? listTodo.map((item, index) => {
         return (
           <li key={index}>
             <div
@@ -23,7 +23,7 @@ export const Todo = (props) => {
             <p>{item.name}</p>
           </li>
         );
-      })}
+      }): <div>nadinha</div>}
     </>
   );
 };

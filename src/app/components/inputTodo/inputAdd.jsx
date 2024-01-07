@@ -1,8 +1,8 @@
-export const InputAdd = (props) => {
+export const InputAdd = ({addTodo, handleInput, value}) => {
   return (
     <>
-      <input onChange={props.handleInput} placeholder="Add a Title to your List" />
-      <button onClick={props.addTodo} className="">
+      <input onChange={handleInput} placeholder="Add a Title to your List" value={value}/>
+      <button onClick={addTodo} className="">
         Add+
       </button>
     </>
