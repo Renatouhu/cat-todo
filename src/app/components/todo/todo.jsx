@@ -12,7 +12,7 @@ export const Todo = ({ listTodo }) => {
 
   return (
     <>
-      {listTodo !== undefined ? listTodo.map((item, index) => {
+      {listTodo.length > 0 ? listTodo.map((item, index) => {
         return (
           <li key={index}>
             <div
@@ -23,7 +23,7 @@ export const Todo = ({ listTodo }) => {
             <p>{item.name}</p>
           </li>
         );
-      }): <div>nadinha</div>}
+      }): <div className={styles.todosNull}>Add todos uphere!</div>}
     </>
   );
 };
