@@ -1,7 +1,7 @@
 import styles from "../../../../styles/todo.module.sass";
 
 export const Todo = ({ listTodo }) => {
-  function changeCheckbox(e) {
+  function toggleTodo(e) {
     let ischecked = e.target.className === styles.item;
     if (ischecked) {
       e.target.className += ` ${styles.itemChecked}`;
@@ -10,20 +10,22 @@ export const Todo = ({ listTodo }) => {
     }
   }
 
-  return (
-    <>
-      {listTodo.length > 0 ? listTodo.map((item, index) => {
+  const listItems = listTodo.items === undefined ? [] : listTodo.items
+  const todos =
+    listItems.length > 0 ? (
+      listItems.map((item) => {
         return (
-          <li key={index}>
+          <li key={item.id}>
             <div
               className={styles.item}
               id="check-todo"
-              onClick={changeCheckbox}
+              onClick={toggleTodo}
             />
             <p>{item.name}</p>
           </li>
         );
-      }): <div className={styles.todosNull}>Add todos uphere!</div>}
-    </>
-  );
+      })
+    ) : <div className={styles.todosNull}>Add todos uphere!</div>
+
+  return <>{todos}</>;
 };
