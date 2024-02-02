@@ -1,22 +1,45 @@
 @import './_variables'
 
 .main
-    background-color: $themeColor2
+    .lists
+        display: flex
+        gap: 5px
+        width: 100%
     .listName
-        padding: 10px
+        background-color: $surfaceContainer
+        border-radius: 30px
+        min-width: 10vw
+        width: 20vw
+        min-height: 10vh
+        height: auto
+        padding: 28px
         input
-            font-size: 1rem
+            font-size: 1.3rem
+            width: 80%
             background: none
             border: none
+            color: $onSurface
+            font-family: $font-family-secundary-bold, sans-serif
         button
+            width: 20%
+            height: 15%
             background: none
             border: none
-            color: white
-            font-size: 20px
+            border-radius: 30px
+            box-shadow: $primary 0.5px 0 4px
+            color: $onSurface
+            font-size: 1rem
+            font-family: $font-family-secundary-regular, sans-serif
     .listTodos
-        background-color: #358576
+        background-color: $surfaceContainerHighest
         padding: 15px
+        border-radius: 30px
+        margin-top: 20px
         li
             display: flex
             align-items: center
             gap: 10px
+            color: $onSurfaceAlt
+            font-family: $font-family-secundary-regular, sans-serif
+        input
+            color: $onSurfaceAlt

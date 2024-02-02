@@ -2,35 +2,82 @@
 import { useEffect, useState } from "react";
 import styles from "../../../../styles/main.module.sass";
 import stylesTodo from "../../../../styles/todo.module.sass";
-import { Todo } from "../Todo/Todo.jsx";
-import { InputAdd } from "../inputAdd/inputAdd";
+import { ListsTodo } from "../listsTodo/ListsTodo";
 
 export const Main = () => {
-  const [desktop] = useState("Nome da Lista");
-  const [listTodo, setListTodo] = useState({
-    name: "",
-    items: [],
-  });
+  const [listsTodo, setListTodo] = useState([
+    {
+      name: "Segunda-feira",
+      items: [
+        {
+          id: 0,
+          name: "item 1",
+          status: false,
+        },
+        {
+          id: 1,
+          name: "item 2",
+          status: false,
+        },
+      ],
+    },
+    {
+      name: "Terça-feira",
+      items: [
+        {
+          id: 0,
+          name: "item 1",
+          status: false,
+        },
+        {
+          id: 1,
+          name: "item 2",
+          status: false,
+        },
+      ],
+    },
+    {
+      name: "Quarta-feira",
+      items: [
+        {
+          id: 0,
+          name: "item 1",
+          status: false,
+        },
+        {
+          id: 1,
+          name: "item 2",
+          status: false,
+        },
+      ],
+    },
+  ]);
 
-  useEffect(() => {
-    const local = JSON.parse(localStorage.getItem("todos"));
-    if (local) setListTodo(local);
-  }, []);
+  // useEffect(() => {
+  //   const local = JSON.parse(localStorage.getItem("todos"));
+  //   if (local) setListTodo(local);
+  // }, []);
 
-  // DEU CERTO?
   const handleInput = (e) => {
     let listName = e.target.value;
-    localStorage.setItem("todos", JSON.stringify({...listTodo, name: listName }));
+    localStorage.setItem(
+      "todos",
+      JSON.stringify({ ...listsTodo, name: listName })
+    );
     setListTodo({
       name: listName,
-      items: listTodo.items === undefined ? [] : [...listTodo.items]
-    })
+      items: listsTodo.items === undefined ? [] : [...listsTodo.items],
+    });
   };
 
   function addListTodo(newTodo) {
-    const todosItems = listTodo.items === undefined ? newTodo : [...listTodo.items, newTodo];
-    setListTodo({...listTodo, items: todosItems});
-    localStorage.setItem("todos", JSON.stringify({...listTodo, items: todosItems}));
+    const todosItems =
+      listsTodo.items === undefined ? newTodo : [...listsTodo.items, newTodo];
+    setListTodo({ ...listsTodo, items: todosItems });
+    localStorage.setItem(
+      "todos",
+      JSON.stringify({ ...listsTodo, items: todosItems })
+    );
   }
 
   function addTodo() {
@@ -59,17 +106,8 @@ export const Main = () => {
   return (
     <>
       <main className={styles.main}>
-        <section>
-          <div className={styles.listName}>
-            <InputAdd
-              addTodo={addTodo}
-              handleInput={handleInput}
-              value={listTodo.name}
-            />
-            <ul className={styles.listTodos}>
-              <Todo listTodo={listTodo} />
-            </ul>
-          </div>
+        <section className={styles.lists}>
+          <ListsTodo listsProp={listsTodo} addTodo={addTodo} handleInput={handleInput} />
         </section>
       </main>
     </>

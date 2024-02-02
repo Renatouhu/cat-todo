@@ -3,12 +3,20 @@
 .item
     width: 30px
     height: 30px
-    background-color: white
+    background-color: $onPrimary
 .itemChecked
-    border: 1px solid $colorCheck
     position: relative
-    background-color: $colorCheck
     &::before
+        content: ''
+        width: 90%
+        height: 90%
+        position: absolute
+        top: 50%
+        right: 50%
+        transform: translate(50%, -50%)
+        background-color: $onPrimaryContainer
+        border-radius: 100%
+    &::after
         content: ''
         width: 100%
         height: 100%
@@ -18,6 +26,7 @@
         background: url(#{$todo-checked}) no-repeat
         background-size: cover
         background-position: center
+
 .todosNull
     font-size: 1.2rem
 .todosNullHidden
