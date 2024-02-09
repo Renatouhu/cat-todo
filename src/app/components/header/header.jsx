@@ -7,15 +7,17 @@ import { currentTheme } from "../../../../public/themes/themes";
 
 export const Header = (props) => {
   function onClickThemeIcon() {
-    const themeContainer = document.querySelector(`.${styles.hiddenThemeContainer}`);
-    const isHidden = themeContainer.classList.contains(styles.hiddenThemeContainer)
-    if(isHidden){
-      themeContainer.classList.remove(styles.hiddenThemeContainer)
-      themeContainer.classList.add(styles.ThemeContainer)
-      return
+    const themeContainer = document.getElementById('themeContainer');
+    const isHidden = themeContainer.classList.contains(
+      styles.hiddenThemeContainer
+    );
+    if (isHidden) {
+      themeContainer.classList.remove(styles.hiddenThemeContainer);
+      themeContainer.classList.add(styles.ThemeContainer);
+      return;
     }
-    themeContainer.classList.remove(styles.ThemeContainer)
-    themeContainer.classList.add(styles.hiddenThemeContainer)
+    themeContainer.classList.remove(styles.ThemeContainer);
+    themeContainer.classList.add(styles.hiddenThemeContainer);
   }
 
   return (
@@ -44,6 +46,7 @@ export const Header = (props) => {
           />
         </div>
         <div
+          id="themeContainer"
           className={styles.hiddenThemeContainer}
           style={{ backgroundColor: currentTheme.colors.primary }}
         >
