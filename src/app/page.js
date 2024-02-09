@@ -1,6 +1,5 @@
 import { Main } from './components/Main/main.jsx'
-import { Header } from './components/Header/Header.jsx'
-
+import { Header } from './components/Header/header.jsx'
 
 export default function Home() {
   return (

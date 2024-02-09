@@ -92,7 +92,7 @@ export const Main = () => {
     inputTodo.addEventListener("keypress", (e) => {
       if (e.key === "Enter") {
         const newTodo = {
-          id: self.crypto.randomUUID(), // VER ISSO AQUI
+          id: self.crypto.randomUUID(), 
           name: inputTodo.value,
           status: false,
         };

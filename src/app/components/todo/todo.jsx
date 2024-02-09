@@ -1,3 +1,4 @@
+import { currentTheme } from "../../../../public/themes/themes";
 import styles from "../../../../styles/todo.module.sass";
 
 export const Todo = ({ listTodo }) => {
@@ -10,7 +11,7 @@ export const Todo = ({ listTodo }) => {
     }
   }
 
-  const listItems = listTodo.items === undefined ? [] : listTodo.items
+  const listItems = listTodo.items === undefined ? [] : listTodo.items;
   const todos =
     listItems.length > 0 ? (
       listItems.map((item) => {
@@ -18,6 +19,7 @@ export const Todo = ({ listTodo }) => {
           <li key={item.id}>
             <div
               className={styles.item}
+              style={{ backgroundColor: currentTheme.colors.onPrimary }}
               id="check-todo"
               onClick={toggleTodo}
             />
@@ -25,7 +27,9 @@ export const Todo = ({ listTodo }) => {
           </li>
         );
       })
-    ) : <div className={styles.todosNull}>Add todos uphere!</div>
+    ) : (
+      <div className={styles.todosNull}>Add todos uphere!</div>
+    );
 
   return <>{todos}</>;
 };
