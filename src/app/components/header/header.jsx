@@ -6,13 +6,16 @@ import styles from "../../../../styles/header.module.sass";
 import { currentTheme } from "../../../../public/themes/themes";
 
 export const Header = (props) => {
-  function onClickThemeIcon(e) {
-    e.currentTarget.parentElement.innerHTML += `
-      <div class=${styles.changeThemeContainer} style="background-color: ${currentTheme.colors.primary}">
-        <button style="background-color: ${currentTheme.colors}">tema escuro</button>
-        <button style="background-color: ${currentTheme.colors}">tema roxo pastel</button>
-      </div>
-    `;
+  function onClickThemeIcon() {
+    const themeContainer = document.querySelector(`.${styles.hiddenThemeContainer}`);
+    const isHidden = themeContainer.classList.contains(styles.hiddenThemeContainer)
+    if(isHidden){
+      themeContainer.classList.remove(styles.hiddenThemeContainer)
+      themeContainer.classList.add(styles.ThemeContainer)
+      return
+    }
+    themeContainer.classList.remove(styles.ThemeContainer)
+    themeContainer.classList.add(styles.hiddenThemeContainer)
   }
 
   return (
@@ -39,6 +42,21 @@ export const Header = (props) => {
             width={50}
             height={45}
           />
+        </div>
+        <div
+          className={styles.hiddenThemeContainer}
+          style={{ backgroundColor: currentTheme.colors.primary }}
+        >
+          <button
+            style={{ backgroundColor: currentTheme.colors.onPrimaryContainer }}
+          >
+            Tema Escuro
+          </button>
+          <button
+            style={{ backgroundColor: currentTheme.colors.onPrimaryContainer }}
+          >
+            Tema Roxo Pastel
+          </button>
         </div>
       </div>
     </header>
