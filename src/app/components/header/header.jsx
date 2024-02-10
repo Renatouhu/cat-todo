@@ -56,38 +56,40 @@ export const Header = (props) => {
           className={styles.hiddenThemeContainer}
           style={{ backgroundColor: currentTheme.colors.primaryContainer }}
         >
-          <button
-            style={{
-              background: "linear-gradient(to left, #fef7ff 50%, #6750A4 50%)",
-              color: "black",
-            }}
-          >
-            Light
-          </button>
-          <button
-            style={{
-              background: "linear-gradient(to left, #1d1b20 50%, #49454f 50%)",
-              color: "white",
-            }}
-          >
-            Dark
-          </button>
-          <button
-            style={{
-              background: "linear-gradient(to left, #330F18 50%, #E6A4B4 50%)",
-              color: "white",
-            }}
-          >
-            Red Pastel
-          </button>
-          <button
-            style={{
-              background: "linear-gradient(to left, #3D2661 50%, #705794 50%)",
-              color: "white",
-            }}
-          >
-            Purple Pastel
-          </button>
+          <div className={styles.backgroundSpecial}>
+            <button
+              style={{
+                background: "linear-gradient(to left, #fef7ff 50%, #6750A4 50%)",
+                color: "black",
+              }}
+            >
+              Light
+            </button>
+            <button
+              style={{
+                background: "linear-gradient(to left, #1d1b20 50%, #49454f 50%)",
+                color: "white",
+              }}
+            >
+              Dark
+            </button>
+            <button
+              style={{
+                background: "linear-gradient(to left, #330F18 50%, #E6A4B4 50%)",
+                color: "white",
+              }}
+            >
+              Red Pastel
+            </button>
+            <button
+              style={{
+                background: "linear-gradient(to left, #3D2661 50%, #705794 50%)",
+                color: "white",
+              }}
+            >
+              Purple Pastel
+            </button>
+          </div>
         </div>
       </div>
     </header>
