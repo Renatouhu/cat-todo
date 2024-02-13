@@ -1,6 +1,6 @@
-const themes = [
+export const themes = [
     {
-        themeName: light,
+        themeName: 'Light',
         colors: {
             surface: '#fef7ff',
             surfaceContainer: '#f3edf7',
@@ -14,7 +14,7 @@ const themes = [
         }
     },
     {
-        themeName: dark,
+        themeName: 'Dark',
         colors: {
             surface: '#141218',
             surfaceContainer: '#211f26',
@@ -28,7 +28,7 @@ const themes = [
         }
     },
     {
-        themeName: redPastel,
+        themeName: 'Red Pastel',
         colors: {
             surface: '#330F18',
             surfaceContainer: '#4C252F',
@@ -42,17 +42,17 @@ const themes = [
         }
     },
     {
-        themeName: purplePastel,
+        themeName: 'Purple Pastel',
         colors: {
             surface: '#DFCCFB',
             surfaceContainer: '#D0BFFF',
             surfaceContainerHighest: '#BEADFA',
-            onSurface: '#FFF3DA',
-            onSurfaceAlt: '#F5EEE6',
+            onSurface: '#3D2661',
+            onSurfaceAlt: '#705794',
             primary:  '#BEADFA',
             onPrimary: '#F3D7CA',
             primaryContainer: '#eaddff',
             onPrimaryContainer: '#3C3161'
         }
-    }
+    },
 ]
