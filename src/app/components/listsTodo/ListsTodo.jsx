@@ -1,11 +1,18 @@
+"use client";
 import { Todo } from "../Todo/Todo.jsx";
-import { InputAdd } from "../inputAdd/inputAdd.jsx";
 import styles from "../../../../styles/main.module.sass";
-import { currentTheme } from "../../../../public/themes/themes.js";
+import { themes } from "../../../../public/themes/themes.js";
+import { useContext } from "react";
 import { v4 as uuidv4 } from "uuid";
+import { InputAdd } from "../InputAdd/inputAdd.jsx";
+import { ThemeContext } from "../../page.js";
 
 export function ListsTodo({ listsProp, addTodo, handleInput }) {
+  const themeContext = useContext(ThemeContext);
+  const themeId = themeContext["themeId"];
+
   const listsToRender = [...listsProp];
+
   return (
     <>
       {listsToRender.map((list) => {
@@ -14,7 +21,7 @@ export function ListsTodo({ listsProp, addTodo, handleInput }) {
           <div
             className={styles.listName}
             key={keyId}
-            style={{ backgroundColor: currentTheme.colors.surfaceContainer }}
+            style={{ backgroundColor: themes[themeId].colors.surfaceContainer }}
           >
             <InputAdd
               addTodo={addTodo}
@@ -24,8 +31,8 @@ export function ListsTodo({ listsProp, addTodo, handleInput }) {
             <ul
               className={styles.listTodos}
               style={{
-                backgroundColor: currentTheme.colors.surfaceContainerHighest,
-                color: currentTheme.colors.onSurfaceAlt,
+                backgroundColor: themes[themeId].colors.surfaceContainerHighest,
+                color: themes[themeId].colors.onSurfaceAlt,
               }}
             >
               <Todo listTodo={list} />

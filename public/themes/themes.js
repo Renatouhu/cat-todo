@@ -1,8 +1,6 @@
-import { useContext } from "react"
-
-const themes = [
+export const themes = [
     {
-        themeName: 'light',
+        themeName: 'Light',
         colors: {
             surface: '#fef7ff',
             surfaceContainer: '#f3edf7',
@@ -16,7 +14,7 @@ const themes = [
         }
     },
     {
-        themeName: 'dark',
+        themeName: 'Dark',
         colors: {
             surface: '#141218',
             surfaceContainer: '#211f26',
@@ -30,7 +28,7 @@ const themes = [
         }
     },
     {
-        themeName: 'redPastel',
+        themeName: 'Red Pastel',
         colors: {
             surface: '#330F18',
             surfaceContainer: '#4C252F',
@@ -44,7 +42,7 @@ const themes = [
         }
     },
     {
-        themeName: 'purplePastel',
+        themeName: 'Purple Pastel',
         colors: {
             surface: '#DFCCFB',
             surfaceContainer: '#D0BFFF',
@@ -56,7 +54,5 @@ const themes = [
             primaryContainer: '#eaddff',
             onPrimaryContainer: '#3C3161'
         }
-    }
+    },
 ]
-
-export const currentTheme = themes[3]

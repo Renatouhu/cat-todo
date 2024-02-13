@@ -3,9 +3,15 @@ import Image from "next/image";
 import Logo from "../../../../public/images/header-logo-teste-black.png";
 import themeIcon from "../../../../public/images/theme-icon.png";
 import styles from "../../../../styles/header.module.sass";
-import { currentTheme } from "../../../../public/themes/themes";
+import { themes } from "../../../../public/themes/themes";
+import { useContext } from "react";
+import { ThemeContext } from "../../page";
 
 export const Header = (props) => {
+  const themeContext = useContext(ThemeContext);
+  const themeId = themeContext["themeId"];
+  const setThemeId = themeContext["setThemeId"];
+
   function onClickThemeIcon() {
     const themeContainer = document.getElementById("themeContainer");
     const isHidden = themeContainer.classList.contains(
@@ -23,7 +29,7 @@ export const Header = (props) => {
   return (
     <header
       className={styles.header}
-      style={{ color: currentTheme.colors.onSurface }}
+      style={{ color: themes[themeId].colors.onSurface }}
     >
       <div className={styles.logo}>
         <div className={styles.logoIcon}>
@@ -38,7 +44,9 @@ export const Header = (props) => {
           ) : (
             ""
           )}
-          <div style={{ backgroundColor: currentTheme.colors.primary }}></div>
+          <div
+            style={{ backgroundColor: themes[themeId].colors.primary }}
+          ></div>
         </div>
         <h1>{props.title}</h1>
       </div>
@@ -49,46 +57,32 @@ export const Header = (props) => {
             alt="a draw of a cat half black, half transparent"
             width={50}
             height={45}
+            priority={true}
           />
         </div>
         <div
           id="themeContainer"
           className={styles.hiddenThemeContainer}
-          style={{ backgroundColor: currentTheme.colors.primaryContainer }}
+          style={{
+            backgroundColor: themes[themeId].colors.surfaceContainerHighest,
+            width: `calc( 70px * ${themes.length})`,
+          }}
         >
           <div className={styles.backgroundSpecial}>
-            <button
-              style={{
-                background: "linear-gradient(to left, #fef7ff 50%, #6750A4 50%)",
-                color: "black",
-              }}
-            >
-              Light
-            </button>
-            <button
-              style={{
-                background: "linear-gradient(to left, #1d1b20 50%, #49454f 50%)",
-                color: "white",
-              }}
-            >
-              Dark
-            </button>
-            <button
-              style={{
-                background: "linear-gradient(to left, #330F18 50%, #E6A4B4 50%)",
-                color: "white",
-              }}
-            >
-              Red Pastel
-            </button>
-            <button
-              style={{
-                background: "linear-gradient(to left, #3D2661 50%, #705794 50%)",
-                color: "white",
-              }}
-            >
-              Purple Pastel
-            </button>
+            {themes.map((theme, index) => {
+              return (
+                <button
+                  key={crypto.randomUUID()}
+                  style={{
+                    background: `linear-gradient(to left, ${theme.colors.surface} 50%, ${theme.colors.primary} 50%)`,
+                    color: theme.colors.onSurface,
+                  }}
+                  onClick={() => setThemeId(index)}
+                >
+                  {theme.themeName}
+                </button>
+              );
+            })}
           </div>
         </div>
       </div>

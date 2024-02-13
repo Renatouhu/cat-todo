@@ -1,5 +1,6 @@
-import { currentTheme } from "../../../../public/themes/themes";
 import styles from "../../../../styles/todo.module.sass";
+import { themes } from "../../../../public/themes/themes";
+import { useContext } from "react";
 
 export const Todo = ({ listTodo }) => {
   function toggleTodo(e) {
@@ -19,7 +20,7 @@ export const Todo = ({ listTodo }) => {
           <li key={item.id}>
             <div
               className={styles.item}
-              style={{ backgroundColor: currentTheme.colors.onPrimary }}
+              style={{ backgroundColor: themes[3].colors.onPrimary }}
               id="check-todo"
               onClick={toggleTodo}
             />
