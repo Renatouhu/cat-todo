@@ -1,4 +1,5 @@
 "use client";
+import { Lobster } from 'next/font/google'
 import Image from "next/image";
 import Logo from "../../../../public/images/header-logo-teste-black.png";
 import themeIcon from "../../../../public/images/theme-icon.png";
@@ -6,6 +7,12 @@ import styles from "../../../../styles/header.module.sass";
 import { themes } from "../../../../public/themes/themes";
 import { useContext } from "react";
 import { ThemeContext } from "../../page";
+
+const lobster = Lobster({
+  subsets: ["latin"],
+  weight: "400",
+  display: 'swap',
+});
 
 export const Header = (props) => {
   const themeContext = useContext(ThemeContext);
@@ -28,7 +35,7 @@ export const Header = (props) => {
 
   return (
     <header
-      className={styles.header}
+      className={`${styles.header} ${lobster.className}`}
       style={{ color: themes[themeId].colors.onSurface }}
     >
       <div className={styles.logo}>

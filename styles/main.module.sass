@@ -12,21 +12,30 @@
         min-height: 10vh
         height: auto
         padding: 28px
-        input
-            font-size: 1.3rem
-            width: 80%
-            background: none
-            border: none
+        .todoHeader
+            display: flex
+            justify-content: space-between
             font-family: $font-family-secundary-bold, sans-serif
-        button
-            width: 20%
-            height: 15%
-            background: none
-            border: none
-            border-radius: 30px
-            box-shadow: $primary 0.5px 0 4px
-            font-size: 1rem
-            font-family: $font-family-secundary-regular, sans-serif
+            label
+                font-size: 1.3rem
+            input
+                font-size: 1.3rem
+                font-family: $font-family-secundary-bold, sans-serif
+                width: 70%
+                background: none
+                border: none
+            svg
+                width: 10%
+                height: 50%
+            button
+                width: 20%
+                height: 15%
+                background: none
+                border: none
+                border-radius: 30px
+                box-shadow: $primary 0.5px 0 4px
+                font-size: 1rem
+                font-family: $font-family-secundary-regular, sans-serif
     .listTodos
         padding: 15px
         border-radius: 30px
