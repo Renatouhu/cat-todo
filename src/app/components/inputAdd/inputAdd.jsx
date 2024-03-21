@@ -21,6 +21,7 @@ export const InputAdd = ({ addTodo, value, handleInputName }) => {
           placeholder="Add a Title to your List"
           style={{ color: themes[themeId].colors.onSurface }}
           onChange={(e) => setInputText(e.target.value)}
+          maxLength={30}
         />
         <FontAwesomeIcon
           icon={faFloppyDisk}

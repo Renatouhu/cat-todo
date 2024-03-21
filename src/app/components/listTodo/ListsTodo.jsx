@@ -93,27 +93,38 @@ export function ListsTodo() {
     );
   }
 
-  function addTodo() {
-    const list = document.querySelector(`.${styles.listTodos}`);
-    list.getElementsByClassName(stylesTodo.todosNull)[0] !== undefined
-      ? (list.getElementsByClassName(stylesTodo.todosNull)[0].className +=
-          " " + stylesTodo.todosNullHidden)
-      : null;
+  function addTodo(e) {
+    // const list = document.querySelector(`.${styles.listTodos}`);
+    const list = e.target.parentElement.parentNode;
+    const listId = e.target.parentElement.parentNode.attributes["id"].value;
+    console.log(list);
     const inputTodo = document.createElement("input");
     inputTodo.setAttribute("type", "text");
-    inputTodo.setAttribute("placeholder", "Add a Todo");
+    inputTodo.setAttribute("placeholder", "Add a todo");
+    inputTodo.setAttribute(
+      "style",
+      `color: ${themes[themeId].colors.onSurface}`
+    );
     inputTodo.addEventListener("keypress", (e) => {
       if (e.key === "Enter") {
-        const newTodo = {
-          id: self.crypto.randomUUID(),
-          name: inputTodo.value,
-          status: false,
-        };
-        addListTodo(newTodo);
-        list.removeChild(inputTodo);
+        const listNewTodoAdded = listsTodo.map((list) => {
+          if (list.id == listId) {
+            return {
+              id: list.id,
+              name: list.name,
+              items: [
+                ...list.items,
+                { id: uuidv4(), name: inputTodo.value, status: false },
+              ],
+            };
+          }
+          return list;
+        });
+        setListsTodo(listNewTodoAdded);
+        list.lastChild.removeChild(inputTodo);
       }
     });
-    list.appendChild(inputTodo);
+    list.lastChild.appendChild(inputTodo);
   }
 
   return (
@@ -123,7 +134,7 @@ export function ListsTodo() {
         return (
           <div
             key={keyId}
-            className={styles.listName}
+            className={styles.list}
             id={list.id}
             order={list.order}
             style={{ backgroundColor: themes[themeId].colors.surfaceContainer }}
