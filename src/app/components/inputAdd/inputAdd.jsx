@@ -9,10 +9,11 @@ import { faFloppyDisk, faPen } from "@fortawesome/free-solid-svg-icons";
 export const InputAdd = ({ addTodo, value, handleInputName }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [inputText, setInputText] = useState(value);
-  let inputContent;
+  const [styleOnHover, setStyleOnHover] = useState();
   const themeContext = useContext(ThemeContext);
   const themeId = themeContext["themeId"];
 
+  let inputContent;
   if (isEditing) {
     inputContent = (
       <>
@@ -58,12 +59,19 @@ export const InputAdd = ({ addTodo, value, handleInputName }) => {
     );
   }
 
+  const buttonHover = {
+    color: themes[themeId].colors.primaryContainer,
+    background: themes[themeId].colors.onPrimaryContainer,
+  };
+
   return (
     <div className={styles.todoHeader}>
       <div>{inputContent}</div>
       <button
         onClick={addTodo}
-        style={{ color: themes[themeId].colors.onSurface }}
+        style={styleOnHover}
+        onMouseEnter={() => setStyleOnHover(buttonHover)}
+        onMouseLeave={() => setStyleOnHover({})}
       >
         Add+
       </button>

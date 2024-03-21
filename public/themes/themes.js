@@ -37,7 +37,7 @@ export const themes = [
             onSurfaceAlt: '#F5EEE6',
             primary:  '#E6A4B4',
             onPrimary: '#F3D7CA',
-            primaryContainer: '#eaddff',
+            primaryContainer: '#DDC6BB',
             onPrimaryContainer: '#331609'
         }
     },
