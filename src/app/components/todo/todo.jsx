@@ -1,14 +1,15 @@
 import styles from "../../../../styles/todo.module.sass";
 import { themes } from "../../../../public/themes/themes";
-import { useContext } from "react";
-
-export const Todo = ({ listTodo }) => {
+import { v4 as uuid } from "uuid";
+export const Todo = ({ listTodo, handleChangeItemStatus }) => {
   function toggleTodo(e) {
-    let ischecked = e.target.className === styles.item;
-    if (ischecked) {
-      e.target.className += ` ${styles.itemChecked}`;
+    let todoStatus = e.target.parentElement.attributes["status"].value;
+    const todoItemId = e.target.parentElement.id;
+    const todoListId = e.target.parentElement.parentElement.parentElement.id;
+    if (todoStatus == "false") {
+      handleChangeItemStatus(todoListId, todoItemId, true);
     } else {
-      e.target.className = styles.item;
+      handleChangeItemStatus(todoListId, todoItemId, false);
     }
   }
 
@@ -16,10 +17,14 @@ export const Todo = ({ listTodo }) => {
   const todos =
     listItems.length > 0 ? (
       listItems.map((item) => {
+        const stylesCheckbox =
+          item.status === true
+            ? `${styles.item} ${styles.itemChecked}`
+            : styles.item;
         return (
-          <li key={item.id}>
+          <li key={uuid()} id={item.id} status={item.status.toString()}>
             <div
-              className={styles.item}
+              className={stylesCheckbox}
               style={{ backgroundColor: themes[3].colors.onPrimary }}
               id="check-todo"
               onClick={toggleTodo}

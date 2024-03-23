@@ -1,4 +1,4 @@
-import { Todo } from "../Todo/Todo.jsx";
+import { Todo } from "../Todo/todo.jsx";
 import { InputAdd } from "../InputAdd/inputAdd.jsx";
 import styles from "../../../../styles/main.module.sass";
 import { themes } from "../../../../public/themes/themes.js";
@@ -94,7 +94,6 @@ export function ListsTodo() {
   }
 
   function addTodo(e) {
-    // const list = document.querySelector(`.${styles.listTodos}`);
     const list = e.target.parentElement.parentNode;
     const listId = e.target.parentElement.parentNode.attributes["id"].value;
     console.log(list);
@@ -127,6 +126,31 @@ export function ListsTodo() {
     list.lastChild.appendChild(inputTodo);
   }
 
+  function handleChangeItemStatus(listId, itemId, status) {
+    const itemUpdated = listsTodo.map((list) => {
+      if (list.id == listId) {
+        const itemsUpdated = list.items.map((item) => {
+          if (item.id == itemId) {
+            return {
+              id: item.id,
+              name: item.name,
+              status: status,
+            };
+          }
+          return item;
+        });
+        return {
+          id: list.id,
+          name: list.name,
+          order: list.order,
+          items: itemsUpdated,
+        };
+      }
+      return list;
+    });
+    setListsTodo(itemUpdated);
+  }
+
   return (
     <>
       {listsTodo.map((list) => {
@@ -151,7 +175,10 @@ export function ListsTodo() {
                 color: themes[themeId].colors.onSurfaceAlt,
               }}
             >
-              <Todo listTodo={list} />
+              <Todo
+                listTodo={list}
+                handleChangeItemStatus={handleChangeItemStatus}
+              />
             </ul>
           </div>
         );
