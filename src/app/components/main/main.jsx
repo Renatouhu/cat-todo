@@ -1,5 +1,5 @@
 import styles from "../../../../styles/main.module.sass";
-import { ListsTodo } from "../listTodo/ListsTodo";
+import { ListsTodo } from "../ListsTodo/ListsTodo";
 
 export const Main = () => {
   return (

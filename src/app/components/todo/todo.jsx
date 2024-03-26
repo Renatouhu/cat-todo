@@ -1,4 +1,7 @@
-import styles from "../../../../styles/todo.module.sass";
+import stylesTodo from "../../../../styles/todo.module.sass";
+import stylesMain from "../../../../styles/main.module.sass";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash, faPen } from "@fortawesome/free-solid-svg-icons";
 import { themes } from "../../../../public/themes/themes";
 import { v4 as uuid } from "uuid";
 export const Todo = ({ listTodo, handleChangeItemStatus }) => {
@@ -17,24 +20,26 @@ export const Todo = ({ listTodo, handleChangeItemStatus }) => {
   const todos =
     listItems.length > 0 ? (
       listItems.map((item) => {
-        const stylesCheckbox =
+        const stylesTodoCheckbox =
           item.status === true
-            ? `${styles.item} ${styles.itemChecked}`
-            : styles.item;
+            ? `${stylesTodo.item} ${stylesTodo.itemChecked}`
+            : stylesTodo.item;
         return (
           <li key={uuid()} id={item.id} status={item.status.toString()}>
             <div
-              className={stylesCheckbox}
+              className={`${stylesTodoCheckbox} ${stylesMain.checkbox}`}
               style={{ backgroundColor: themes[3].colors.onPrimary }}
               id="check-todo"
               onClick={toggleTodo}
             />
-            <p>{item.name}</p>
+            <p className={stylesMain.todoText}>{item.name}</p>
+            <FontAwesomeIcon icon={faPen} className={stylesMain.editIcon}/>
+            <FontAwesomeIcon icon={faTrash} className={stylesMain.deleteIcon}/>
           </li>
         );
       })
     ) : (
-      <div className={styles.todosNull}>Add todos uphere!</div>
+      <div className={stylesTodo.todosNull}>Add todos uphere!</div>
     );
 
   return <>{todos}</>;
