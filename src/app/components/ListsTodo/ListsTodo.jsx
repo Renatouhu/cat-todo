@@ -150,6 +150,62 @@ export function ListsTodo() {
     setListsTodo(itemUpdated);
   }
 
+  function handleEditTodo(e) {
+    const item = e.currentTarget.parentElement;
+    const itemId = item.attributes["id"].value;
+    const listId =
+      e.currentTarget.parentElement.parentElement.parentElement.attributes["id"]
+        .value;
+    const inputTodo = document.createElement("input");
+    inputTodo.setAttribute("type", "text");
+    inputTodo.setAttribute("placeholder", "Edit Text");
+    inputTodo.setAttribute(
+      "style",
+      `color: ${themes[themeId].colors.onSurface}`
+    );
+    item.innerHTML = "";
+    item.appendChild(inputTodo);
+
+    inputTodo.addEventListener("keypress", (e) => {
+      if (e.key === "Enter") {
+        const listUpdated = listsTodo.map((list) => {
+          if (list.id == listId) {
+            const listItemUpdated = list.items.map((item) => {
+              if (item.id == itemId) {
+                return {
+                  id: item.id,
+                  name: inputTodo.value,
+                  status: item.status,
+                };
+              }
+              return item;
+            });
+            return { ...list, items: listItemUpdated };
+          }
+          return list;
+        });
+        setListsTodo(listUpdated);
+      }
+    });
+  }
+
+  function handleDeleteTodo(e) {
+    const itemId = e.currentTarget.parentElement.attributes["id"].value;
+    const listId =
+      e.currentTarget.parentElement.parentElement.parentElement.attributes["id"]
+        .value;
+    const listDeletedItem = listsTodo.map((list) => {
+      if (list.id == listId) {
+        return {
+          ...list,
+          items: list.items.filter((item) => item.id != itemId),
+        };
+      }
+      return list;
+    });
+    setListsTodo(listDeletedItem);
+  }
+
   return (
     <>
       {listsTodo.map((list) => {
@@ -177,6 +233,8 @@ export function ListsTodo() {
               <Todo
                 listTodo={list}
                 handleChangeItemStatus={handleChangeItemStatus}
+                handleEditTodo={handleEditTodo}
+                handleDeleteTodo={handleDeleteTodo}
               />
             </ul>
           </div>

@@ -4,7 +4,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faPen } from "@fortawesome/free-solid-svg-icons";
 import { themes } from "../../../../public/themes/themes";
 import { v4 as uuid } from "uuid";
-export const Todo = ({ listTodo, handleChangeItemStatus }) => {
+export const Todo = ({
+  listTodo,
+  handleChangeItemStatus,
+  handleEditTodo,
+  handleDeleteTodo,
+}) => {
   function toggleTodo(e) {
     let todoStatus = e.target.parentElement.attributes["status"].value;
     const todoItemId = e.target.parentElement.id;
@@ -25,7 +30,7 @@ export const Todo = ({ listTodo, handleChangeItemStatus }) => {
             ? `${stylesTodo.item} ${stylesTodo.itemChecked}`
             : stylesTodo.item;
         return (
-          <li key={uuid()} id={item.id} status={item.status.toString()}>
+          <li key={uuid()} id={item.id}>
             <div
               className={`${stylesTodoCheckbox} ${stylesMain.checkbox}`}
               style={{ backgroundColor: themes[3].colors.onPrimary }}
@@ -33,8 +38,16 @@ export const Todo = ({ listTodo, handleChangeItemStatus }) => {
               onClick={toggleTodo}
             />
             <p className={stylesMain.todoText}>{item.name}</p>
-            <FontAwesomeIcon icon={faPen} className={stylesMain.editIcon}/>
-            <FontAwesomeIcon icon={faTrash} className={stylesMain.deleteIcon}/>
+            <FontAwesomeIcon
+              icon={faPen}
+              className={stylesMain.editIcon}
+              onClick={handleEditTodo}
+            />
+            <FontAwesomeIcon
+              icon={faTrash}
+              className={stylesMain.deleteIcon}
+              onClick={handleDeleteTodo}
+            />
           </li>
         );
       })
