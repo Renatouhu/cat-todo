@@ -3,7 +3,7 @@ import { InputAdd } from "../InputAdd/inputAdd.jsx";
 import styles from "../../../../styles/main.module.sass";
 import { themes } from "../../../../public/themes/themes.js";
 import { ThemeContext } from "../../page.js";
-import { useState, useContext } from "react";
+import { useState, useContext, createElement } from "react";
 import { v4 as uuidv4 } from "uuid";
 
 export function ListsTodo() {
@@ -166,25 +166,34 @@ export function ListsTodo() {
     item.innerHTML = "";
     item.appendChild(inputTodo);
 
+    function updateTextTodo() {
+      const listUpdated = listsTodo.map((list) => {
+        if (list.id == listId) {
+          const listItemUpdated = list.items.map((item) => {
+            if (item.id == itemId) {
+              return {
+                id: item.id,
+                name: inputTodo.value,
+                status: item.status,
+              };
+            }
+            return item;
+          });
+          return { ...list, items: listItemUpdated };
+        }
+        return list;
+      });
+      setListsTodo(listUpdated);
+    }
+
+    const image = document.createElement('button')
+    image.onclick = updateTextTodo
+    image.classList = `${styles.saveText}`
+    item.appendChild(image)
+
     inputTodo.addEventListener("keypress", (e) => {
       if (e.key === "Enter") {
-        const listUpdated = listsTodo.map((list) => {
-          if (list.id == listId) {
-            const listItemUpdated = list.items.map((item) => {
-              if (item.id == itemId) {
-                return {
-                  id: item.id,
-                  name: inputTodo.value,
-                  status: item.status,
-                };
-              }
-              return item;
-            });
-            return { ...list, items: listItemUpdated };
-          }
-          return list;
-        });
-        setListsTodo(listUpdated);
+        updateTextTodo();
       }
     });
   }
