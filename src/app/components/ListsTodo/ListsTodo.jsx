@@ -1,9 +1,10 @@
+"use client";
 import { Todo } from "../Todo/todo.jsx";
 import { InputAdd } from "../InputAdd/inputAdd.jsx";
 import styles from "../../../../styles/main.module.sass";
 import { themes } from "../../../../public/themes/themes.js";
 import { ThemeContext } from "../../page.js";
-import { useState, useContext, createElement } from "react";
+import { useState, useContext, useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
 
 export function ListsTodo() {
@@ -63,10 +64,14 @@ export function ListsTodo() {
   const themeContext = useContext(ThemeContext);
   const themeId = themeContext["themeId"];
 
-  // useEffect(() => {
-  //   const local = JSON.parse(localStorage.getItem("todos"));
-  //   if (local) setListTodo(local);
-  // }, []);
+  useEffect(() => {
+    const localData = JSON.parse(localStorage.getItem("ListsTodos"));
+    if (localData) setListsTodo(localData);
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("ListsTodos", JSON.stringify(listsTodo));
+  }, [listsTodo]);
 
   const handleInput = function (listName, listId) {
     const updatedListName = listsTodo.map((list) => {
@@ -75,23 +80,19 @@ export function ListsTodo() {
       }
       return list;
     });
-
-    // localStorage.setItem(
-    //   "todos",
-    //   JSON.stringify({ ...listsTodo, name: listName })
-    // );
     setListsTodo(updatedListName);
   };
 
-  function addListTodo(newTodo) {
-    const todosItems =
-      listsTodo.items === undefined ? newTodo : [...listsTodo.items, newTodo];
-    setListTodo({ ...listsTodo, items: todosItems });
-    localStorage.setItem(
-      "todos",
-      JSON.stringify({ ...listsTodo, items: todosItems })
-    );
-  }
+  // have to rework on this
+  // function addListTodo(newTodo) {
+  //   const todosItems =
+  //     listsTodo.items === undefined ? newTodo : [...listsTodo.items, newTodo];
+  //   setListTodo({ ...listsTodo, items: todosItems });
+  //   localStorage.setItem(
+  //     "todos",
+  //     JSON.stringify({ ...listsTodo, items: todosItems })
+  //   );
+  // }
 
   function addTodo(e) {
     const list = e.target.parentElement.parentNode;
@@ -186,10 +187,10 @@ export function ListsTodo() {
       setListsTodo(listUpdated);
     }
 
-    const image = document.createElement('button')
-    image.onclick = updateTextTodo
-    image.classList = `${styles.saveText}`
-    item.appendChild(image)
+    const image = document.createElement("button");
+    image.onclick = updateTextTodo;
+    image.classList = `${styles.saveText}`;
+    item.appendChild(image);
 
     inputTodo.addEventListener("keypress", (e) => {
       if (e.key === "Enter") {
