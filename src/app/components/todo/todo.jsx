@@ -21,10 +21,9 @@ export const Todo = ({
     }
   }
 
-  const listItems = listTodo.items === undefined ? [] : listTodo.items;
   const todos =
-    listItems.length > 0 ? (
-      listItems.map((item) => {
+    listTodo?.items.length > 0 ? (
+      listTodo?.items.map((item) => {
         const stylesTodoCheckbox =
           item.status === true
             ? `${stylesTodo.item} ${stylesTodo.itemChecked}`
