@@ -65,8 +65,10 @@ export function ListsTodo() {
   const themeId = themeContext["themeId"];
 
   useEffect(() => {
-    const localData = JSON.parse(localStorage.getItem("ListsTodos"));
-    if (localData) setListsTodo(localData);
+    if (typeof window !== "undefined" && window.localStorage) {
+      setListsTodo(JSON.parse(localStorage.getItem("ListsTodos")));
+      console.log("GET LISTS TODOS");
+    }
   }, []);
 
   useEffect(() => {
@@ -151,13 +153,14 @@ export function ListsTodo() {
     setListsTodo(itemUpdated);
   }
 
-  function handleEditTodo(e) {
+  function handleEditTodo(e, prevText) {
     const item = e.currentTarget.parentElement;
     const itemId = item.attributes["id"].value;
     const listId =
       e.currentTarget.parentElement.parentElement.parentElement.attributes["id"]
         .value;
     const inputTodo = document.createElement("input");
+    inputTodo.value = prevText;
     inputTodo.setAttribute("type", "text");
     inputTodo.setAttribute("placeholder", "Edit Text");
     inputTodo.setAttribute(

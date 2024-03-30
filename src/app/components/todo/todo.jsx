@@ -40,7 +40,7 @@ export const Todo = ({
             <FontAwesomeIcon
               icon={faPen}
               className={stylesMain.editIcon}
-              onClick={handleEditTodo}
+              onClick={(e) => handleEditTodo(e, item.name)}
             />
             <FontAwesomeIcon
               icon={faTrash}
