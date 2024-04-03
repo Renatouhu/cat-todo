@@ -20,39 +20,38 @@ export const Todo = ({
       handleChangeItemStatus(todoListId, todoItemId, false);
     }
   }
-
-  const todos =
-    listTodo?.items.length > 0 ? (
-      listTodo?.items.map((item) => {
-        const stylesTodoCheckbox =
-          item.status === true
-            ? `${stylesTodo.item} ${stylesTodo.itemChecked}`
-            : stylesTodo.item;
-        return (
-          <li key={uuid()} id={item.id}>
-            <div
-              className={`${stylesTodoCheckbox} ${stylesMain.checkbox}`}
-              style={{ backgroundColor: themes[3].colors.onPrimary }}
-              id="check-todo"
-              onClick={toggleTodo}
-            />
-            <p className={stylesMain.todoText}>{item.name}</p>
-            <FontAwesomeIcon
-              icon={faPen}
-              className={stylesMain.editIcon}
-              onClick={(e) => handleEditTodo(e, item.name)}
-            />
-            <FontAwesomeIcon
-              icon={faTrash}
-              className={stylesMain.deleteIcon}
-              onClick={handleDeleteTodo}
-            />
-          </li>
-        );
-      })
-    ) : (
-      <div className={stylesTodo.todosNull}>Add todos uphere!</div>
-    );
+  let todos;
+  if (listTodo.items != undefined) {
+    todos = listTodo.items.map((item) => {
+      const stylesTodoCheckbox =
+        item.status === true
+          ? `${stylesTodo.item} ${stylesTodo.itemChecked}`
+          : stylesTodo.item;
+      return (
+        <li key={uuid()} id={item.id}>
+          <div
+            className={`${stylesTodoCheckbox} ${stylesMain.checkbox}`}
+            style={{ backgroundColor: themes[3].colors.onPrimary }}
+            id="check-todo"
+            onClick={toggleTodo}
+          />
+          <p className={stylesMain.todoText}>{item.name}</p>
+          <FontAwesomeIcon
+            icon={faPen}
+            className={stylesMain.editIcon}
+            onClick={(e) => handleEditTodo(e, item.name)}
+          />
+          <FontAwesomeIcon
+            icon={faTrash}
+            className={stylesMain.deleteIcon}
+            onClick={handleDeleteTodo}
+          />
+        </li>
+      );
+    });
+  } else {
+    todos = <div className={stylesTodo.todosNull}>Add todos uphere!</div>;
+  }
 
   return <>{todos}</>;
 };

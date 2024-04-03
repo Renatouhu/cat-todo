@@ -8,77 +8,31 @@ import { useState, useContext, useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
 
 export function ListsTodo() {
-  const [listsTodo, setListsTodo] = useState([
-    {
-      id: 0,
-      name: "Segunda-feira",
-      order: 1,
-      items: [
-        {
-          id: 0,
-          name: "item 1",
-          status: false,
-        },
-        {
-          id: 1,
-          name: "item 2",
-          status: false,
-        },
-      ],
-    },
-    {
-      id: 1,
-      name: "Terça-feira",
-      order: 2,
-      items: [
-        {
-          id: 0,
-          name: "item 1",
-          status: false,
-        },
-        {
-          id: 1,
-          name: "item 2",
-          status: false,
-        },
-      ],
-    },
-    {
-      id: 2,
-      name: "Quarta-feira",
-      order: 3,
-      items: [
-        {
-          id: 0,
-          name: "item 1",
-          status: false,
-        },
-        {
-          id: 1,
-          name: "item 2",
-          status: false,
-        },
-      ],
-    },
-  ]);
+  const [listsTodo, setListsTodo] = useState([]);
   const themeContext = useContext(ThemeContext);
   const themeId = themeContext["themeId"];
 
   useEffect(() => {
     if (typeof window !== "undefined" && window.localStorage) {
-      setListsTodo(JSON.parse(localStorage.getItem("ListsTodos")));
-      console.log("GET LISTS TODOS");
+      let listsLocal = JSON.parse(localStorage.getItem("ListsTodos"));
     }
   }, []);
 
   useEffect(() => {
-    localStorage.setItem("ListsTodos", JSON.stringify(listsTodo));
+    if (listsTodo.length > 1) {
+      localStorage.setItem("ListsTodos", JSON.stringify(listsTodo));
+    }
   }, [listsTodo]);
 
   const handleInput = function (listName, listId) {
     const updatedListName = listsTodo.map((list) => {
       if (list.id == listId) {
-        return { id: list.id, name: listName, items: [...list.items] };
+        return {
+          id: list.id,
+          name: listName,
+          order: list.order,
+          items: list.items == undefined ? undefined : [...list.items],
+        };
       }
       return list;
     });
@@ -86,15 +40,14 @@ export function ListsTodo() {
   };
 
   // have to rework on this
-  // function addListTodo(newTodo) {
-  //   const todosItems =
-  //     listsTodo.items === undefined ? newTodo : [...listsTodo.items, newTodo];
-  //   setListTodo({ ...listsTodo, items: todosItems });
-  //   localStorage.setItem(
-  //     "todos",
-  //     JSON.stringify({ ...listsTodo, items: todosItems })
-  //   );
-  // }
+  function addListTodo(e) {
+    const listName = e.currentTarget.previousElementSibling.value;
+    if (listsTodo.length < 1) {
+      setListsTodo([{ id: uuidv4(), name: listName, order: 1 }]);
+    } else {
+      setListsTodo([...listsTodo, { id: uuidv4(), name: listName, order: 2 }]);
+    }
+  }
 
   function addTodo(e) {
     const list = e.target.parentElement.parentNode;
@@ -110,13 +63,22 @@ export function ListsTodo() {
       if (e.key === "Enter") {
         const listNewTodoAdded = listsTodo.map((list) => {
           if (list.id == listId) {
+            if (list.items != undefined) {
+              return {
+                id: list.id,
+                name: list.name,
+                order: list.order,
+                items: [
+                  ...list.items,
+                  { id: uuidv4(), name: inputTodo.value, status: false },
+                ],
+              };
+            }
             return {
               id: list.id,
               name: list.name,
-              items: [
-                ...list.items,
-                { id: uuidv4(), name: inputTodo.value, status: false },
-              ],
+              order: list.order,
+              items: [{ id: uuidv4(), name: inputTodo.value, status: false }],
             };
           }
           return list;
@@ -219,40 +181,49 @@ export function ListsTodo() {
     setListsTodo(listDeletedItem);
   }
 
-  return (
-    <>
-      {listsTodo.map((list) => {
-        let keyId = uuidv4();
-        return (
-          <div
-            key={keyId}
-            className={styles.list}
-            id={list.id}
-            order={list.order}
-            style={{ backgroundColor: themes[themeId].colors.surfaceContainer }}
+  let listsContent;
+
+  if (listsTodo.length > 0) {
+    listsContent = listsTodo.map((list) => {
+      let keyId = uuidv4();
+      return (
+        <div
+          key={keyId}
+          className={styles.list}
+          id={list.id}
+          order={list.order}
+          style={{ backgroundColor: themes[themeId].colors.surfaceContainer }}
+        >
+          <InputAdd
+            addTodo={addTodo}
+            value={list.name}
+            handleInputName={handleInput}
+          />
+          <ul
+            className={styles.listTodos}
+            style={{
+              backgroundColor: themes[themeId].colors.surfaceContainerHighest,
+              color: themes[themeId].colors.onSurfaceAlt,
+            }}
           >
-            <InputAdd
-              addTodo={addTodo}
-              value={list.name}
-              handleInputName={handleInput}
+            <Todo
+              listTodo={list}
+              handleChangeItemStatus={handleChangeItemStatus}
+              handleEditTodo={handleEditTodo}
+              handleDeleteTodo={handleDeleteTodo}
             />
-            <ul
-              className={styles.listTodos}
-              style={{
-                backgroundColor: themes[themeId].colors.surfaceContainerHighest,
-                color: themes[themeId].colors.onSurfaceAlt,
-              }}
-            >
-              <Todo
-                listTodo={list}
-                handleChangeItemStatus={handleChangeItemStatus}
-                handleEditTodo={handleEditTodo}
-                handleDeleteTodo={handleDeleteTodo}
-              />
-            </ul>
-          </div>
-        );
-      })}
-    </>
-  );
+          </ul>
+        </div>
+      );
+    });
+  } else {
+    listsContent = (
+      <>
+        <label htmlFor="createList">Create New List</label>
+        <input placeholder="name your new list"></input>
+        <button onClick={addListTodo}>Add</button>
+      </>
+    );
+  }
+  return <>{listsContent}</>;
 }
