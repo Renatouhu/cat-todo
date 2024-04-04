@@ -15,11 +15,14 @@ export function ListsTodo() {
   useEffect(() => {
     if (typeof window !== "undefined" && window.localStorage) {
       let listsLocal = JSON.parse(localStorage.getItem("ListsTodos"));
+      if (listsLocal.length > 0) {
+        setListsTodo(listsLocal);
+      }
     }
   }, []);
 
   useEffect(() => {
-    if (listsTodo.length > 1) {
+    if (listsTodo.length > 0) {
       localStorage.setItem("ListsTodos", JSON.stringify(listsTodo));
     }
   }, [listsTodo]);
@@ -39,7 +42,6 @@ export function ListsTodo() {
     setListsTodo(updatedListName);
   };
 
-  // have to rework on this
   function addListTodo(e) {
     const listName = e.currentTarget.previousElementSibling.value;
     if (listsTodo.length < 1) {

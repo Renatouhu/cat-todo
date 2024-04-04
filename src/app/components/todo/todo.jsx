@@ -20,15 +20,16 @@ export const Todo = ({
       handleChangeItemStatus(todoListId, todoItemId, false);
     }
   }
+
   let todos;
-  if (listTodo.items != undefined) {
+  if (listTodo.items != undefined ) {
     todos = listTodo.items.map((item) => {
       const stylesTodoCheckbox =
         item.status === true
           ? `${stylesTodo.item} ${stylesTodo.itemChecked}`
           : stylesTodo.item;
       return (
-        <li key={uuid()} id={item.id}>
+        <li key={item.id} id={item.id}>
           <div
             className={`${stylesTodoCheckbox} ${stylesMain.checkbox}`}
             style={{ backgroundColor: themes[3].colors.onPrimary }}
