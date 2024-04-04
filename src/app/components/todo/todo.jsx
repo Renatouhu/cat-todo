@@ -3,7 +3,6 @@ import stylesMain from "../../../../styles/main.module.sass";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faPen } from "@fortawesome/free-solid-svg-icons";
 import { themes } from "../../../../public/themes/themes";
-import { v4 as uuid } from "uuid";
 export const Todo = ({
   listTodo,
   handleChangeItemStatus,
@@ -22,7 +21,7 @@ export const Todo = ({
   }
 
   let todos;
-  if (listTodo.items != undefined ) {
+  if (listTodo.items != undefined && listTodo.items.length > 0) {
     todos = listTodo.items.map((item) => {
       const stylesTodoCheckbox =
         item.status === true

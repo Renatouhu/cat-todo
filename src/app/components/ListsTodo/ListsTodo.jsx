@@ -53,7 +53,8 @@ export function ListsTodo() {
 
   function addTodo(e) {
     const list = e.target.parentElement.parentNode;
-    const listId = e.target.parentElement.parentNode.attributes["id"].value;
+    const listId = list.attributes["id"].value;
+    list.lastChild.innerHTML = "";
     const inputTodo = document.createElement("input");
     inputTodo.setAttribute("type", "text");
     inputTodo.setAttribute("placeholder", "Add a todo");
