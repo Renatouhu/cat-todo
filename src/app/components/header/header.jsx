@@ -1,5 +1,5 @@
 "use client";
-import { Lobster } from 'next/font/google'
+import { Lobster } from "next/font/google";
 import Image from "next/image";
 import Logo from "../../../../public/images/header-logo-teste-black.png";
 import themeIcon from "../../../../public/images/theme-icon.png";
@@ -11,12 +11,13 @@ import { ThemeContext } from "../../page";
 const lobster = Lobster({
   subsets: ["latin"],
   weight: "400",
-  display: 'swap',
+  display: "swap",
 });
 
 export const Header = (props) => {
   const themeContext = useContext(ThemeContext);
   const themeId = themeContext["themeId"];
+  const actualTheme = themes[themeId];
   const setThemeId = themeContext["setThemeId"];
 
   function onClickThemeIcon() {
@@ -36,7 +37,7 @@ export const Header = (props) => {
   return (
     <header
       className={`${styles.header} ${lobster.className}`}
-      style={{ color: themes[themeId].colors.onSurface }}
+      style={{ color: actualTheme.colors.onSurface }}
     >
       <div className={styles.logo}>
         <div className={styles.logoIcon}>
@@ -51,9 +52,7 @@ export const Header = (props) => {
           ) : (
             ""
           )}
-          <div
-            style={{ backgroundColor: themes[themeId].colors.primary }}
-          ></div>
+          <div style={{ backgroundColor: actualTheme.colors.primary }}></div>
         </div>
         <h1>{props.title}</h1>
       </div>
@@ -71,7 +70,7 @@ export const Header = (props) => {
           id="themeContainer"
           className={styles.hiddenThemeContainer}
           style={{
-            backgroundColor: themes[themeId].colors.surfaceContainerHighest,
+            backgroundColor: actualTheme.colors.surfaceContainerHighest,
             width: `calc( 70px * ${themes.length})`,
           }}
         >

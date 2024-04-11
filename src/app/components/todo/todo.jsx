@@ -3,16 +3,24 @@ import stylesMain from "../../../../styles/main.module.sass";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faPen } from "@fortawesome/free-solid-svg-icons";
 import { themes } from "../../../../public/themes/themes";
+import { v4 as uuidv4 } from "uuid";
+import { useContext } from "react";
+import { ThemeContext } from "../../page";
+
 export const Todo = ({
   listTodo,
   handleChangeItemStatus,
   handleEditTodo,
   handleDeleteTodo,
 }) => {
+  const themeId = useContext(ThemeContext)["themeId"];
+  const actualTheme = themes[themeId];
+
   function toggleTodo(e) {
     let todoStatus = e.target.parentElement.attributes["status"].value;
     const todoItemId = e.target.parentElement.id;
-    const todoListId = e.target.parentElement.parentElement.parentElement.id;
+    const todoListId =
+      e.target.parentElement.parentElement.parentElement.parentElement.id;
     if (todoStatus == "false") {
       handleChangeItemStatus(todoListId, todoItemId, true);
     } else {
@@ -28,14 +36,20 @@ export const Todo = ({
           ? `${stylesTodo.item} ${stylesTodo.itemChecked}`
           : stylesTodo.item;
       return (
-        <li key={item.id} id={item.id}>
+        <li key={uuidv4()}>
           <div
-            className={`${stylesTodoCheckbox} ${stylesMain.checkbox}`}
-            style={{ backgroundColor: themes[3].colors.onPrimary }}
-            id="check-todo"
-            onClick={toggleTodo}
-          />
-          <p className={stylesMain.todoText}>{item.name}</p>
+            className={stylesMain.todoContent}
+            status={item.status.toString()}
+            id={item.id}
+          >
+            <div
+              className={`${stylesTodoCheckbox}`}
+              style={{ backgroundColor: actualTheme.colors.onPrimary }}
+              id="check-todo"
+              onClick={toggleTodo}
+            />
+            <p>{item.name}</p>
+          </div>
           <FontAwesomeIcon
             icon={faPen}
             className={stylesMain.editIcon}

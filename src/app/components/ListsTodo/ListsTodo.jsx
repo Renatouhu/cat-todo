@@ -3,17 +3,23 @@ import { Todo } from "../Todo/todo.jsx";
 import { InputAdd } from "../InputAdd/inputAdd.jsx";
 import styles from "../../../../styles/main.module.sass";
 import { themes } from "../../../../public/themes/themes.js";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { ThemeContext } from "../../page.js";
-import { useState, useContext, useEffect } from "react";
+import { useState, useContext, useEffect, Fragment } from "react";
 import { v4 as uuidv4 } from "uuid";
+import { Button } from "../Button/Button.jsx";
 
 export function ListsTodo() {
   const [listsTodo, setListsTodo] = useState([]);
-  const themeContext = useContext(ThemeContext);
-  const themeId = themeContext["themeId"];
+  const themeId = useContext(ThemeContext)["themeId"];
+  const actualTheme = themes[themeId];
 
   useEffect(() => {
-    if (typeof window !== "undefined" && window.localStorage) {
+    if (
+      typeof window !== "undefined" &&
+      localStorage["ListsTodos"] != undefined
+    ) {
       let listsLocal = JSON.parse(localStorage.getItem("ListsTodos"));
       if (listsLocal.length > 0) {
         setListsTodo(listsLocal);
@@ -54,14 +60,10 @@ export function ListsTodo() {
   function addTodo(e) {
     const list = e.target.parentElement.parentNode;
     const listId = list.attributes["id"].value;
-    list.lastChild.innerHTML = "";
     const inputTodo = document.createElement("input");
     inputTodo.setAttribute("type", "text");
     inputTodo.setAttribute("placeholder", "Add a todo");
-    inputTodo.setAttribute(
-      "style",
-      `color: ${themes[themeId].colors.onSurface}`
-    );
+    inputTodo.setAttribute("style", `color: ${actualTheme.colors.onSurface}`);
     inputTodo.addEventListener("keypress", (e) => {
       if (e.key === "Enter") {
         const listNewTodoAdded = listsTodo.map((list) => {
@@ -90,11 +92,12 @@ export function ListsTodo() {
         list.lastChild.removeChild(inputTodo);
       }
     });
+    list.lastChild.children < 1 ? (list.lastChild.innerHTML = "") : "";
     list.lastChild.appendChild(inputTodo);
   }
 
   function handleChangeItemStatus(listId, itemId, status) {
-    const itemUpdated = listsTodo.map((list) => {
+    const listItemUpdated = listsTodo.map((list) => {
       if (list.id == listId) {
         const itemsUpdated = list.items.map((item) => {
           if (item.id == itemId) {
@@ -115,7 +118,7 @@ export function ListsTodo() {
       }
       return list;
     });
-    setListsTodo(itemUpdated);
+    setListsTodo(listItemUpdated);
   }
 
   function handleEditTodo(e, prevText) {
@@ -128,10 +131,7 @@ export function ListsTodo() {
     inputTodo.value = prevText;
     inputTodo.setAttribute("type", "text");
     inputTodo.setAttribute("placeholder", "Edit Text");
-    inputTodo.setAttribute(
-      "style",
-      `color: ${themes[themeId].colors.onSurface}`
-    );
+    inputTodo.setAttribute("style", `color: ${actualTheme.colors.onSurface}`);
     item.innerHTML = "";
     item.appendChild(inputTodo);
 
@@ -186,45 +186,89 @@ export function ListsTodo() {
 
   let listsContent;
 
+  const hoverOffStyle = {
+    background: actualTheme.colors.onSurface,
+    border: `1px solid ${actualTheme.colors.onSurface}`,
+    color: actualTheme.colors.onSurfaceAlt,
+  };
+
+  const hoverOnStyle = {
+    background: actualTheme.colors.surfaceContainer,
+    border: `1px solid ${actualTheme.colors.onSurfaceAlt}`,
+    color: actualTheme.colors.onSurface,
+  };
+
   if (listsTodo.length > 0) {
-    listsContent = listsTodo.map((list) => {
-      let keyId = uuidv4();
+    listsContent = listsTodo.map((list, index) => {
       return (
-        <div
-          key={keyId}
-          className={styles.list}
-          id={list.id}
-          order={list.order}
-          style={{ backgroundColor: themes[themeId].colors.surfaceContainer }}
-        >
-          <InputAdd
-            addTodo={addTodo}
-            value={list.name}
-            handleInputName={handleInput}
-          />
-          <ul
-            className={styles.listTodos}
-            style={{
-              backgroundColor: themes[themeId].colors.surfaceContainerHighest,
-              color: themes[themeId].colors.onSurfaceAlt,
-            }}
+        <Fragment key={uuidv4()}>
+          <div
+            className={styles.list}
+            id={list.id}
+            order={list.order}
+            style={{ backgroundColor: actualTheme.colors.surfaceContainer }}
           >
-            <Todo
-              listTodo={list}
-              handleChangeItemStatus={handleChangeItemStatus}
-              handleEditTodo={handleEditTodo}
-              handleDeleteTodo={handleDeleteTodo}
+            <InputAdd
+              addTodo={addTodo}
+              value={list.name}
+              handleInputName={handleInput}
             />
-          </ul>
-        </div>
+            <ul
+              className={styles.listTodos}
+              style={{
+                backgroundColor: actualTheme.colors.surfaceContainerHighest,
+                color: actualTheme.colors.onSurfaceAlt,
+              }}
+            >
+              <Todo
+                listTodo={list}
+                handleChangeItemStatus={handleChangeItemStatus}
+                handleEditTodo={handleEditTodo}
+                handleDeleteTodo={handleDeleteTodo}
+              />
+            </ul>
+          </div>
+          {index === listsTodo.length - 1 && (
+            <>
+              <input
+                placeholder="name your new list"
+                style={{
+                  backgroundColor: actualTheme.colors.surfaceContainer,
+                  border: `1px solid ${actualTheme.colors.surfaceContainerHighest}`,
+                }}
+              ></input>
+              <Button
+                styleOffButton={hoverOffStyle}
+                styleOnHover={hoverOnStyle}
+                onClickFn={addListTodo}
+              >
+                <FontAwesomeIcon icon={faPlus} />
+                Add
+              </Button>
+            </>
+          )}
+        </Fragment>
       );
     });
   } else {
     listsContent = (
       <>
         <label htmlFor="createList">Create New List</label>
-        <input placeholder="name your new list"></input>
-        <button onClick={addListTodo}>Add</button>
+        <input
+          placeholder="name your new list"
+          style={{
+            backgroundColor: actualTheme.colors.surfaceContainer,
+            border: `1px solid ${actualTheme.colors.surfaceContainerHighest}`,
+          }}
+        ></input>
+        <Button
+          styleOffButton={hoverOffStyle}
+          styleOnButton={hoverOnStyle}
+          onClickFn={addListTodo}
+        >
+          <FontAwesomeIcon icon={faPlus} />
+          Add
+        </Button>
       </>
     );
   }

@@ -5,13 +5,14 @@ import { useState, useContext } from "react";
 import { ThemeContext } from "../../page";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFloppyDisk, faPen } from "@fortawesome/free-solid-svg-icons";
+import { Button } from "../Button/Button";
 
 export const InputAdd = ({ addTodo, value, handleInputName }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [inputText, setInputText] = useState(value);
   const [styleOnHover, setStyleOnHover] = useState();
-  const themeContext = useContext(ThemeContext);
-  const themeId = themeContext["themeId"];
+  const themeId = useContext(ThemeContext)["themeId"];
+  const actualTheme = themes[themeId];
 
   let inputContent;
   if (isEditing) {
@@ -20,13 +21,13 @@ export const InputAdd = ({ addTodo, value, handleInputName }) => {
         <input
           value={inputText}
           placeholder="Add a Title to your List"
-          style={{ color: themes[themeId].colors.onSurface }}
+          style={{ color: actualTheme.colors.onSurface }}
           onChange={(e) => setInputText(e.target.value)}
           maxLength={30}
         />
         <FontAwesomeIcon
           icon={faFloppyDisk}
-          styles={{ color: themes[themeId].colors.onSurface }}
+          styles={{ color: actualTheme.colors.onSurface }}
           onClick={(e) => {
             let listId =
               e.target.parentNode.parentElement.parentNode.className ==
@@ -46,35 +47,39 @@ export const InputAdd = ({ addTodo, value, handleInputName }) => {
       <>
         <label
           htmlFor="nameList"
-          style={{ color: themes[themeId].colors.onSurface }}
+          style={{ color: actualTheme.colors.onSurface }}
         >
           {value}
         </label>
         <FontAwesomeIcon
           icon={faPen}
           onClick={() => setIsEditing(true)}
-          styles={{ color: themes[themeId].colors.onSurface }}
+          styles={{ color: actualTheme.colors.onSurface }}
         />
       </>
     );
   }
 
-  const buttonHover = {
-    color: themes[themeId].colors.primaryContainer,
-    background: themes[themeId].colors.onPrimaryContainer,
+  const hoverOffStyle = {
+    color: actualTheme.colors.primaryContainer,
+    background: actualTheme.colors.onPrimaryContainer,
+  };
+
+  const hoverOnStyle = {
+    color: actualTheme.colors.primary,
+    background: actualTheme.colors.onSurface,
   };
 
   return (
     <div className={styles.todoHeader}>
       <div>{inputContent}</div>
-      <button
-        onClick={addTodo}
-        style={styleOnHover}
-        onMouseEnter={() => setStyleOnHover(buttonHover)}
-        onMouseLeave={() => setStyleOnHover({})}
+      <Button
+        onClickFn={addTodo}
+        styleOffButton={hoverOffStyle}
+        styleOnHover={hoverOnStyle}
       >
         Add+
-      </button>
+      </Button>
     </div>
   );
 };
