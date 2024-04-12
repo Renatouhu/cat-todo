@@ -5,6 +5,7 @@
         display: flex
         gap: 20px
         .list
+            position: relative
             min-width: 10vw
             width: 20vw
             min-height: 10vh
@@ -37,6 +38,14 @@
                     border-radius: 30px
                     font-size: 1rem
                     font-family: $font-family-secundary-regular, sans-serif
+            .deleteButton
+                width: 35px
+                height: 35px
+                border-radius: 100%
+                position: absolute
+                top: 0
+                right: -5px
+                font-weight: 800
         .listTodos
             display: flex
             flex-direction: column

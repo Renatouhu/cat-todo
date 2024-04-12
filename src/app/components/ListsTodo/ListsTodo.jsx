@@ -57,6 +57,12 @@ export function ListsTodo() {
     }
   }
 
+  function deleteListTodo(e) {
+    const listId = e.target.parentElement.attributes["id"].value;
+    const updatedLists = listsTodo.filter((list) => list.id != listId);
+    setListsTodo(updatedLists);
+  }
+
   function addTodo(e) {
     const list = e.target.parentElement.parentNode;
     const listId = list.attributes["id"].value;
@@ -89,11 +95,11 @@ export function ListsTodo() {
           return list;
         });
         setListsTodo(listNewTodoAdded);
-        list.lastChild.removeChild(inputTodo);
+        list.children[1].removeChild(inputTodo);
       }
     });
-    list.lastChild.children < 1 ? (list.lastChild.innerHTML = "") : "";
-    list.lastChild.appendChild(inputTodo);
+    list.children[1].children < 1 ? (list.lastChild.innerHTML = "") : "";
+    list.children[1].appendChild(inputTodo);
   }
 
   function handleChangeItemStatus(listId, itemId, status) {
@@ -123,7 +129,7 @@ export function ListsTodo() {
 
   function handleEditTodo(e, prevText) {
     const item = e.currentTarget.parentElement;
-    const itemId = item.attributes["id"].value;
+    const itemId = item.children[0].attributes["id"].value;
     const listId =
       e.currentTarget.parentElement.parentElement.parentElement.attributes["id"]
         .value;
@@ -168,7 +174,8 @@ export function ListsTodo() {
   }
 
   function handleDeleteTodo(e) {
-    const itemId = e.currentTarget.parentElement.attributes["id"].value;
+    const itemId =
+      e.currentTarget.parentElement.firstChild.attributes["id"].value;
     const listId =
       e.currentTarget.parentElement.parentElement.parentElement.attributes["id"]
         .value;
@@ -227,6 +234,13 @@ export function ListsTodo() {
                 handleDeleteTodo={handleDeleteTodo}
               />
             </ul>
+            <button
+              className={styles.deleteButton}
+              style={hoverOffStyle}
+              onClick={deleteListTodo}
+            >
+              X
+            </button>
           </div>
           {index === listsTodo.length - 1 && (
             <>
