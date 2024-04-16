@@ -1,5 +1,6 @@
-<img src="https://github.com/Renatouhu/Assets/blob/main/cat-todo/banner-repo.png"></img>
-
+<p align="center">
+    <img src="https://github.com/Renatouhu/Assets/blob/main/cat-todo/banner-repo.png"></img>
+</p>
 <h1 style="text-align: center">Cat Todo</h1>
 
 <p>This project was made using React, SASS and the resources of Next.js </p>
