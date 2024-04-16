@@ -2,9 +2,9 @@ export const themes = [
     {
         themeName: 'Light',
         colors: {
-            surface: '#fef7ff',
-            surfaceContainer: '#f3edf7',
-            surfaceContainerHighest: '#e6e0e9',
+            surface: '#FFFFFF',
+            surfaceContainer: '#F6F6F6',
+            surfaceContainerHighest: '#B3B3B3',
             onSurface: '#1d1b20',
             onSurfaceAlt: '#49454f',
             primary: '#6750A4',

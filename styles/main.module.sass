@@ -1,6 +1,22 @@
 @import './_variables'
 
 .main
+    position: relative
+    width: 100vw
+    height: 88vh
+    padding: 20px 0 0 20px
+    overflow: hidden
+    z-index: 0
+    &::before
+        content: ''
+        position: absolute
+        width: 120%
+        height: 200%
+        background-image: url(#{$cat-background})
+        background-size: 15%
+        z-index: -1
+        transform: rotate(-25deg) translateY(-25%)
+        opacity: 0.4
     .lists
         display: flex
         gap: 20px
@@ -90,9 +106,10 @@
                 &:focus
                     outline: none
             .saveText
-                width: 20px
-                height: 20px
+                width: 30px
+                height: 30px
                 border: none
+                background: none
                 background-image: url(#{$saveText-image})
                 background-size: 100%
                 background-repeat: no-repeat

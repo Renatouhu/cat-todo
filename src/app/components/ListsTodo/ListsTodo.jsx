@@ -239,7 +239,31 @@ export function ListsTodo() {
               style={hoverOffStyle}
               onClick={deleteListTodo}
             >
-              X
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                version="1.0"
+                viewBox="0 0 512 512"
+              >
+                <path
+                  fill={actualTheme.colors.primary}
+                  fill-opacity=".97"
+                  d="m422.5 186.2-69 69.3 69.3-69c64.3-64.1 69.6-69.5 68.9-69.5-.1 0-31.3 31.2-69.2 69.2m-237 237-69 69.3 69.3-69c38-37.9 69.2-69.1 69.2-69.2 0-.7-5.4 4.6-69.5 68.9"
+                />
+                <path
+                  fill={actualTheme.colors.primary}
+                  d="M62.4 1.1C34.2 3.7 11 23.5 3 52-.6 65.1.2 81.2 5.2 94c5.4 13.8 7.6 16.2 82.4 90.5l71.5 71-69.1 69c-38 37.9-71.3 71.7-73.9 75C5.8 412.3.7 426.6.7 443c-.1 37.7 30.6 68 68.7 68 11.5 0 19.9-2 30.6-7.2l8.5-4.1 73.5-73.3 73.5-73.3 73.5 72.8c80.5 79.6 78.5 77.9 95.5 82.9 15.4 4.4 35.7 2.5 49.3-4.8 23.2-12.3 37.2-35.7 37.2-61.9 0-11.8-1.7-18.9-7.2-30.1-4.1-8.4-4.6-8.9-77.4-82.5l-73.3-74 73.3-73.5c67.5-67.8 73.5-74.1 77-80.7 10.3-20.1 10.2-44.8-.1-64.6-5.3-10.2-17.2-21.9-27.9-27.4C456.3-.6 436.5-2 418 5.2c-13.4 5.2-16.6 8.1-91.1 82.5l-71.6 71.4-66.4-67.2c-36.5-37-69.7-70-73.7-73.4C99.6 5 82.3-.6 62.4 1.1"
+                />
+                <path
+                  fill={actualTheme.colors.primary}
+                  fill-opacity=".57"
+                  d="m324.5 89.2-69 69.3 69.3-69C389.1 25.4 394.4 20 393.7 20c-.1 0-31.3 31.2-69.2 69.2m-236 236-69 69.3 69.3-69c64.3-64.1 69.6-69.5 68.9-69.5-.1 0-31.3 31.2-69.2 69.2"
+                />
+                <path
+                  fill={actualTheme.colors.primary}
+                  fill-opacity=".3"
+                  d="m422.5 187.2-69 69.3 69.3-69c38-37.9 69.2-69.1 69.2-69.2 0-.7-5.4 4.6-69.5 68.9M186 423.7l-68.5 68.8 68.8-68.5c63.9-63.7 69.1-69 68.4-69-.1 0-31 30.9-68.7 68.7"
+                />
+              </svg>
             </button>
           </div>
           {index === listsTodo.length - 1 && (
@@ -249,6 +273,7 @@ export function ListsTodo() {
                 style={{
                   backgroundColor: actualTheme.colors.surfaceContainer,
                   border: `1px solid ${actualTheme.colors.surfaceContainerHighest}`,
+                  color: actualTheme.colors.onSurfaceAlt,
                 }}
               ></input>
               <Button

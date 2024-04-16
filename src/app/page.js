@@ -32,7 +32,7 @@ export default function Home() {
   return (
     <ThemeContext.Provider value={{themeId, setThemeId}}>
       <SectionBody>
-        <Header title="Cat Todo" withimage='true' />
+        <Header title="Cat Todo" withImage='true' />
         <Main />
       </SectionBody>
     </ThemeContext.Provider>

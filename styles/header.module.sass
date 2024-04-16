@@ -2,33 +2,40 @@
 
 .header
     display: flex
+    width: 100%
+    height: 12vh
     align-items: center
     justify-content: space-between
     padding: 10px
-    margin: 0 20px 0 10px
     font-size: 1.3rem
     .logo
         display: flex
         justify-content: flex-start
+        position: relative
         width: 100%
         .logoIcon
             width: 80px
             height: 80px
             position: relative
-            margin-right: 20px
-            img
+            svg
                 position: absolute
-                width: 100%
-                height: 100%
+                width: 120%
+                height: 115%
                 z-index: 1
-                top: -10%
-                right: -8%
+                top: -30%
+                right: -30%
             div
                 position: relative
-                width: 115%
-                height: 115%
+                top: -10%
+                right: -5%
+                width: 130%
+                height: 120%
                 border-radius: 100%
                 z-index: 0
+        h1
+            position: absolute
+            bottom: -20%
+            margin: 0
     .themeHandler
         display: flex
         flex-direction: column
@@ -44,6 +51,7 @@
             right: -5%
             border-radius: 10px
             padding: 0 5px
+            z-index: 1
             .backgroundSpecial
                 display: flex
                 gap: 15px
@@ -52,18 +60,7 @@
                 height: 100%
                 position: relative
                 overflow: hidden
-                z-index: 0
-                &::before
-                    content: ''
-                    position: absolute
-                    width: 130%
-                    height: 165%
-                    z-index: -1
-                    background-image: url(#{$iconTheme})
-                    background-repeat: space
-                    background-size: 10%
-                    transform: rotate(25deg)
-                    opacity: 0.5
+                z-index: 1
             button
                 width: 20%
                 height: 70%

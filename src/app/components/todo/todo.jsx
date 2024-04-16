@@ -63,8 +63,6 @@ export const Todo = ({
         </li>
       );
     });
-  } else {
-    todos = <div className={stylesTodo.todosNull}>Add todos uphere!</div>;
   }
 
   return <>{todos}</>;
