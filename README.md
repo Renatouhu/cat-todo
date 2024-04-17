@@ -1,7 +1,7 @@
 <p align="center">
     <img src="https://github.com/Renatouhu/Assets/blob/main/cat-todo/banner-repo.png"></img>
 </p>
-<h1 style="text-align: center">Cat Todo</h1>
+<h1 align="center">Cat Todo</h1>
 
 <p>
     This project was made using React, SASS and the resources of Next.js. I was using this project for learning React, seeing documentation of React and Next.js. To acess this project deployed on vercel click right here
