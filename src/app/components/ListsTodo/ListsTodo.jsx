@@ -6,7 +6,7 @@ import { themes } from "../../../../public/themes/themes.js";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { ThemeContext } from "../../page.js";
-import { useState, useContext, useEffect, Fragment } from "react";
+import { useState, useContext, useEffect, Fragment, useRef } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { Button } from "../Button/Button.jsx";
 
@@ -14,7 +14,7 @@ export function ListsTodo() {
   const [listsTodo, setListsTodo] = useState([]);
   const themeId = useContext(ThemeContext)["themeId"];
   const actualTheme = themes[themeId];
-
+  const hasPageBeenRendered = useRef(false)
   useEffect(() => {
     if (
       typeof window !== "undefined" &&
@@ -28,9 +28,10 @@ export function ListsTodo() {
   }, []);
 
   useEffect(() => {
-    if (listsTodo.length > 0) {
+    if (hasPageBeenRendered) {
       localStorage.setItem("ListsTodos", JSON.stringify(listsTodo));
     }
+    hasPageBeenRendered.current = true
   }, [listsTodo]);
 
   const handleInput = function (listName, listId) {
@@ -246,7 +247,7 @@ export function ListsTodo() {
               >
                 <path
                   fill={actualTheme.colors.primary}
-                  fill-opacity=".97"
+                  fillOpacity=".97"
                   d="m422.5 186.2-69 69.3 69.3-69c64.3-64.1 69.6-69.5 68.9-69.5-.1 0-31.3 31.2-69.2 69.2m-237 237-69 69.3 69.3-69c38-37.9 69.2-69.1 69.2-69.2 0-.7-5.4 4.6-69.5 68.9"
                 />
                 <path
@@ -255,12 +256,12 @@ export function ListsTodo() {
                 />
                 <path
                   fill={actualTheme.colors.primary}
-                  fill-opacity=".57"
+                  fillOpacity=".57"
                   d="m324.5 89.2-69 69.3 69.3-69C389.1 25.4 394.4 20 393.7 20c-.1 0-31.3 31.2-69.2 69.2m-236 236-69 69.3 69.3-69c64.3-64.1 69.6-69.5 68.9-69.5-.1 0-31.3 31.2-69.2 69.2"
                 />
                 <path
                   fill={actualTheme.colors.primary}
-                  fill-opacity=".3"
+                  fillOpacity=".3"
                   d="m422.5 187.2-69 69.3 69.3-69c38-37.9 69.2-69.1 69.2-69.2 0-.7-5.4 4.6-69.5 68.9M186 423.7l-68.5 68.8 68.8-68.5c63.9-63.7 69.1-69 68.4-69-.1 0-31 30.9-68.7 68.7"
                 />
               </svg>
@@ -292,7 +293,12 @@ export function ListsTodo() {
   } else {
     listsContent = (
       <>
-        <label htmlFor="createList">Create New List</label>
+        <label
+          htmlFor="createList"
+          style={{ color: actualTheme.colors.onSurfaceAlt }}
+        >
+          Create New List
+        </label>
         <input
           placeholder="name your new list"
           style={{

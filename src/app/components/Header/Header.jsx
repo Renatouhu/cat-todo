@@ -1,7 +1,6 @@
 "use client";
 import { Lobster } from "next/font/google";
 import Image from "next/image";
-import Logo from "../../../../public/images/header-logo-teste-black.png";
 import themeIcon from "../../../../public/images/theme-icon.png";
 import styles from "../../../../styles/header.module.sass";
 import { themes } from "../../../../public/themes/themes";
