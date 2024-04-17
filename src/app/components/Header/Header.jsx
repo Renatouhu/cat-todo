@@ -127,7 +127,7 @@ export const Header = (props) => {
                   }}
                   onClick={() => setThemeId(index)}
                 >
-                  {theme.themeName}
+                  <p className={lobster.className}>{theme.themeName}</p>
                 </button>
               );
             })}
