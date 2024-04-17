@@ -17,5 +17,5 @@ git clone https://github.com/Renatouhu/cat-todo.git
 <h3>Final Considerations</h3>
 <p>Cat todo was a project circa 3 months to be made, i used this project to learn more about React and Next.js, that i'm choosed to start my career was web developer. cat todo was a project that a learned a lot and have fun with, i really hope to go forward in my career.
 <br>
-    My idea first of all, was to make a project using almost zero libraries (exception <a href="https://www.npmjs.com/package/uuid">uuid</a> to create random id). i know that is just the beginning into the universe of frameworks and libraries, have some bugs on project and some features that i want to fix and add to this project in some point in future, but for now this is it
+    My idea first of all, was to make a project using almost zero libraries (exception <a href="https://www.npmjs.com/package/uuid">uuid</a> to create random id). i know that is just the beginning into the universe of frameworks and libraries, have some bugs on project and some features that i want to fix and add in some point in future, but for now this is it
 </p>
