@@ -1,6 +1,6 @@
 "use client"
-import { Main } from './components/Main/main.jsx'
-import { Header } from './components/Header/header.jsx'
+import { Main } from './components/Main/Main.jsx'
+import { Header } from './components/Header/Header.jsx'
 import { useState, createContext, useEffect, useRef } from 'react'
 import { SectionBody } from './components/SectionBody/SectionBody.jsx'
 
