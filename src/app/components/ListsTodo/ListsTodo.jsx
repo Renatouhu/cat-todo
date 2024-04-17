@@ -278,7 +278,7 @@ export function ListsTodo() {
                 }}
               ></input>
               <Button
-                styleOnHover={hoverOnStyle}
+                styleOnButton={hoverOnStyle}
                 styleOffButton={hoverOffStyle}
                 onClickFn={addListTodo}
               >

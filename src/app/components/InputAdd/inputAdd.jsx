@@ -76,7 +76,7 @@ export const InputAdd = ({ addTodo, value, handleInputName }) => {
       <Button
         onClickFn={addTodo}
         styleOffButton={hoverOffStyle}
-        styleOnHover={hoverOnStyle}
+        styleOnButton={hoverOnStyle}
       >
         Add+
       </Button>

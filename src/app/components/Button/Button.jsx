@@ -10,7 +10,6 @@ export function Button({ children, styleOffButton, styleOnButton, onClickFn }) {
   useEffect(() => setIsOnHover(false), [actualTheme]);
 
   let styleHoverButton = isOnHover ? styleOnButton : styleOffButton;
-  console.log(styleHoverButton);
   return (
     <button
       style={styleHoverButton}
