@@ -67,40 +67,50 @@ export function ListsTodo() {
   function addTodo(e) {
     const list = e.target.parentElement.parentNode;
     const listId = list.attributes["id"].value;
+    const ul = list.children[1];
+    const div = document.createElement("div");
+    ul.appendChild(div);
+
     const inputTodo = document.createElement("input");
     inputTodo.setAttribute("type", "text");
     inputTodo.setAttribute("placeholder", "Add a todo");
     inputTodo.setAttribute("style", `color: ${actualTheme.colors.onSurface}`);
-    inputTodo.addEventListener("keypress", (e) => {
-      if (e.key === "Enter") {
-        const listNewTodoAdded = listsTodo.map((list) => {
-          if (list.id == listId) {
-            if (list.items != undefined) {
-              return {
-                id: list.id,
-                name: list.name,
-                order: list.order,
-                items: [
-                  ...list.items,
-                  { id: uuidv4(), name: inputTodo.value, status: false },
-                ],
-              };
-            }
+
+    const buttonTodo = document.createElement("button");
+    buttonTodo.classList = styles.saveText;
+
+    function updateList() {
+      const listNewTodoAdded = listsTodo.map((list) => {
+        if (list.id == listId) {
+          if (list.items != undefined) {
             return {
               id: list.id,
               name: list.name,
               order: list.order,
-              items: [{ id: uuidv4(), name: inputTodo.value, status: false }],
+              items: [
+                ...list.items,
+                { id: uuidv4(), name: inputTodo.value, status: false },
+              ],
             };
           }
-          return list;
-        });
-        setListsTodo(listNewTodoAdded);
-        list.children[1].removeChild(inputTodo);
-      }
-    });
-    list.children[1].children < 1 ? (list.lastChild.innerHTML = "") : "";
-    list.children[1].appendChild(inputTodo);
+          return {
+            id: list.id,
+            name: list.name,
+            order: list.order,
+            items: [{ id: uuidv4(), name: inputTodo.value, status: false }],
+          };
+        }
+        return list;
+      });
+      setListsTodo(listNewTodoAdded);
+      div.removeChild(inputTodo);
+      div.removeChild(buttonTodo);
+    }
+    buttonTodo.onclick = updateList;
+
+    div.children < 1 ? (list.lastChild.innerHTML = "") : "";
+    div.appendChild(inputTodo);
+    div.appendChild(buttonTodo);
   }
 
   function handleChangeItemStatus(listId, itemId, status) {
@@ -205,7 +215,7 @@ export function ListsTodo() {
     border: `1px solid ${actualTheme.colors.onSurfaceAlt}`,
     color: actualTheme.colors.onSurface,
   };
-  console.log(hoverOnStyle);
+
   if (listsTodo.length > 0) {
     listsContent = listsTodo.map((list, index) => {
       return (
