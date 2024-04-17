@@ -6,7 +6,7 @@ import { SectionBody } from './components/SectionBody/SectionBody.jsx'
 
 export const ThemeContext = createContext()
 
-export default function Home() {
+export default function Page() {
   const [ themeId, setThemeId ] = useState(0)
   const hasPageBeenRendered = useRef(false)
 
