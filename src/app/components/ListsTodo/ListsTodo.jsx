@@ -14,7 +14,7 @@ export function ListsTodo() {
   const [listsTodo, setListsTodo] = useState([]);
   const themeId = useContext(ThemeContext)["themeId"];
   const actualTheme = themes[themeId];
-  const hasPageBeenRendered = useRef(false)
+  const hasPageBeenRendered = useRef(false);
   useEffect(() => {
     if (
       typeof window !== "undefined" &&
@@ -31,7 +31,7 @@ export function ListsTodo() {
     if (hasPageBeenRendered) {
       localStorage.setItem("ListsTodos", JSON.stringify(listsTodo));
     }
-    hasPageBeenRendered.current = true
+    hasPageBeenRendered.current = true;
   }, [listsTodo]);
 
   const handleInput = function (listName, listId) {
@@ -197,7 +197,7 @@ export function ListsTodo() {
   const hoverOffStyle = {
     background: actualTheme.colors.onSurface,
     border: `1px solid ${actualTheme.colors.onSurface}`,
-    color: actualTheme.colors.onSurfaceAlt,
+    color: actualTheme.colors.surfaceContainer,
   };
 
   const hoverOnStyle = {
@@ -205,7 +205,7 @@ export function ListsTodo() {
     border: `1px solid ${actualTheme.colors.onSurfaceAlt}`,
     color: actualTheme.colors.onSurface,
   };
-
+  console.log(hoverOnStyle);
   if (listsTodo.length > 0) {
     listsContent = listsTodo.map((list, index) => {
       return (
@@ -278,8 +278,8 @@ export function ListsTodo() {
                 }}
               ></input>
               <Button
-                styleOffButton={hoverOffStyle}
                 styleOnHover={hoverOnStyle}
+                styleOffButton={hoverOffStyle}
                 onClickFn={addListTodo}
               >
                 <FontAwesomeIcon icon={faPlus} />
@@ -295,7 +295,7 @@ export function ListsTodo() {
       <>
         <label
           htmlFor="createList"
-          style={{ color: actualTheme.colors.onSurfaceAlt }}
+          style={{ color: actualTheme.colors.primaryContainer }}
         >
           Create New List
         </label>

@@ -2,15 +2,15 @@ import { useEffect, useState, useContext } from "react";
 import { ThemeContext } from "../../page";
 import { themes } from "../../../../public/themes/themes";
 
-export function Button({ children, styleOffButton, styleOnHover, onClickFn }) {
+export function Button({ children, styleOffButton, styleOnButton, onClickFn }) {
   const [isOnHover, setIsOnHover] = useState(false);
   const themeId = useContext(ThemeContext)["themeId"];
   const actualTheme = themes[themeId];
 
   useEffect(() => setIsOnHover(false), [actualTheme]);
 
-  let styleHoverButton = isOnHover ? styleOnHover : styleOffButton;
-
+  let styleHoverButton = isOnHover ? styleOnButton : styleOffButton;
+  console.log(styleHoverButton);
   return (
     <button
       style={styleHoverButton}
